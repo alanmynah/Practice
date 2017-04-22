@@ -175,8 +175,15 @@ def isValidWord(word, hand, wordList):
     hand: dictionary (string -> int)
     wordList: list of lowercase strings
     """
-    
-
+    #Take a word and convert it to its dictionary representation 
+ 
+    if word not in wordList:
+        return False
+    else:
+        for letter in word:
+            if word.count(letter) > hand.get(letter, 0):
+                return False
+        return True
 #
 # Problem #4: Playing a hand
 #
