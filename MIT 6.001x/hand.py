@@ -82,8 +82,17 @@ class Hand(object):
         word: string
         returns: Boolean (if the word was or was not made)
         """
-        # Your code here
-        raise NotImplementedError()
+        guess = ""
+        original = self.hand.copy()
+        for char in word:
+            if self.hand.get(char):
+                self.hand[char] -= 1
+                guess += char
+        if word == guess:
+            return True
+        else:
+            self.hand = original
+            return False
 
     
 myHand = Hand(7)
