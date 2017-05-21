@@ -57,8 +57,27 @@ class CentralCorridor(Scene):
 			print "makes him fly into a rage and blast you repeatedly in the face until"
 			print "you are dead. Then he eats you."
 			return 'death'
-		elif action == "dodge!":
-			
+		elif action == "dodge!" or "dodge":
+			print "Like a world class boxer you dodge, weave, slip and slide right"
+			print "as the Gothon's blaster cranks a laser past your head."
+			print "In the middle of your artful dodge your foot slips and you"
+			print "bang your head on the metal wall and pass out."
+			print "You wake up shortly after only to die as the Gothon stomps on"
+			print "your head and eats you."
+			return 'death'
+
+		elif action == "tell a joke!" or "tell a joke"
+			print "Lucky for you they made you learn Gothon insults in the academy."
+			print "You tell the one Gothon joke you know:"
+			print "Lbhe zbgure vf fb sng, jura fur fvgf nebhaq gur ubhfr, fur fvgf nebhaq gur ubhfr."
+			print "The Gothon stops, tries not to laugh, then busts out laughing and can't move."
+			print "While he's laughing you run up and shoot him square in the head"
+			print "putting him down, then jump through the Weapon Armory door."
+			return 'laser_weapon_armory'
+
+		else:
+			print "DOES NOT COMPUTE!"
+			return 'central_corridor'
 
 
 class LaserWeaponArmory(Scene):
