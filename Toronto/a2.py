@@ -61,3 +61,95 @@ def contains_sequence(dna1, dna2):
     False
 
     """
+    return dna2 in dna1
+
+# print (contains_sequence('ATCGGC', 'GG'))
+# print (contains_sequence('ATCGGC', 'GT'))
+
+def is_valid_sequence(dna):
+    """ (str) -> bool
+    
+    Return True if and only if the DNA sequence is valid. That is, it contains 
+    no characters other than '𝙰', '𝚃', '𝙲' and '𝙶'.
+
+    >>> is_valid_sequence('ATCGGC'):
+    True
+    >>> is_valid_sequence('ATFPQ'):
+    False
+
+    """
+    for char in dna:
+        if char not in "ATCG":
+            return False
+    return True
+
+# print (is_valid_sequence('ATCGGC'))
+# print (is_valid_sequence('ATFPQ'))
+
+def insert_sequence(dna1, dna2, index):
+    """ (str, str, int) -> str
+    
+    Return the DNA sequence obtained by inserting the second DNA sequence into 
+    the first DNA sequence at the given index.
+    
+    >>> insert_sequence('CCGG', 'AT', 2)
+    'CCATGG'
+    >>> insert_sequence('GCGA', 'CT', 1)
+    'GCTCGA'
+
+    """
+    return dna1[:index] + dna2 + dna1[index:]
+
+#print (insert_sequence('CCGG', 'AT', 2))
+#print ('CCATGG')
+#print (insert_sequence('GCGA', 'CT', 1))
+#print ('GCTCGA')
+
+def get_complement(dna_nucleotide):
+    """ (str) -> str
+    
+    Return the nucleotide's complement. 
+
+    >>> get_complement('A')
+    T
+    >>> get_complement('T')
+    A
+    """
+
+    if char == 'A':
+        return 'T'
+    elif char == 'T':
+        return 'A'
+    elif char == 'C':
+        return 'G'
+    elif char == 'G':
+        return 'C'
+
+def get_complementary_sequence(dna_sequence):
+    """ (str) -> str
+    
+    Return the DNA sequence that is complementary to the given DNA sequence. 
+
+    >>> get_complementary_sequence('ACGTACG')
+    TGCATGC
+    >>> get_complementary_sequence('TGCATGC')
+    ACGTACG
+    """
+    complementary_sequence = ''
+
+    for char in dna_sequence:
+        if char == 'A':
+            complementary_sequence += 'T'
+        elif char == 'T':
+            complementary_sequence += 'A'
+        elif char == 'C':
+            complementary_sequence += 'G'
+        elif char == 'G':
+            complementary_sequence += 'C'
+
+    return complementary_sequence
+        
+# print (get_compiment_sequence('ACGTACG'))
+# print ('TGCATGC')
+# print (get_compiment_sequence('TGCATGC'))
+# print ('ACGTACG')

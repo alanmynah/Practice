@@ -19,15 +19,16 @@ grad = zeros(size(theta));
 %               You should set J to the cost and grad to the gradient.
 %
 
+hoft = X*theta;
+sumSqErr = sum((hoft - y).^2);
 
+%Don't forget to exclude theta0, as we don't include it in regularisation
+jregterm = (lambda/(2*m))*sum(theta(2:end).^2);
+gradregterm = (lambda/m).*theta(2:end);
 
-
-
-
-
-
-
-
+J = sumSqErr/(2*m) + jregterm;
+grad = (1/m * (X'*(hoft - y)));
+grad(2:end) = grad(2:end) + gradregterm;
 
 
 % =========================================================================
