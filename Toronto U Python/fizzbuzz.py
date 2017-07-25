@@ -1,7 +1,7 @@
 def fizzbuzz(numForFizz, numForBuzz):
 	
 	range_start = int(input('Start: '))
-	range_finish = int(input('Finish:'))
+	range_finish = int(input('Finish: '))
 	for numGenerated in range(range_start, range_finish+1):
 		message = ''
 		if numGenerated % numForFizz == 0:
