@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>CSS Grids</title>
+  <style>
+    .wrapper {
+      display: grid;
+      grid-template-columns: 70% 30%;
+
+      /*grid-column-gap: 1em;
+      grid-row-gap: 1em;*/
+
+      grid-gap: 1em;
+    }
+
+    .wrapper > div {
+      background: #eee;
+      padding: 1em;
+    }
+
+    .wrapper > div:nth-child(odd){
+      background: #ddd;
+    }
+  </style>
+
+</head>
+<body>
+  <div class="wrapper">
+    <div>
+      Lorem ipsum dolor sit amet, consectetur adipisicing elit. Neque consectetur corporis culpa ipsam cumque fuga sapiente, amet totam impedit fugit ducimus nihil explicabo. Eaque ratione itaque earum incidunt quod facere maiores modi sapiente enim labore ad laudantium praesentium, perspiciatis nesciunt ullam facilis voluptatem quisquam error nostrum quo aspernatur dicta iusto! Commodi iure esse doloremque! Unde nam aliquam magni expedita eum, alias, iste explicabo necessitatibus consequatur suscipit minus reprehenderit quod perspiciatis numquam ad mollitia dolor eligendi vero doloribus rem. Esse, velit.
+    </div>
+    <div>
+      Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sit, voluptas nesciunt repellendus optio? Neque, consequuntur. Sint facere ipsam repellendus distinctio autem expedita a, excepturi minus fugiat, magni qui. Rerum, sapiente.
+    </div>
+    <div>
+      Lorem ipsum dolor sit amet, consectetur adipisicing elit. Neque consectetur corporis culpa ipsam cumque fuga sapiente, amet totam impedit fugit ducimus nihil explicabo. Eaque ratione itaque earum incidunt quod facere maiores modi sapiente enim labore ad laudantium praesentium, perspiciatis nesciunt ullam facilis voluptatem quisquam error nostrum quo aspernatur dicta iusto! Commodi iure esse doloremque! Unde nam aliquam magni expedita eum, alias, iste explicabo necessitatibus consequatur suscipit minus reprehenderit quod perspiciatis numquam ad mollitia dolor eligendi vero doloribus rem. Esse, velit.
+    </div>
+    <div>
+      Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sit, voluptas nesciunt repellendus optio? Neque, consequuntur. Sint facere ipsam repellendus distinctio autem expedita a, excepturi minus fugiat, magni qui. Rerum, sapiente.
+    </div>
+
+  </div>
+</body>
+</html>
