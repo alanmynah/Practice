@@ -1,5 +1,4 @@
 document.addEventListener('DOMContentLoaded', () => {
-
   const form = document.getElementById('registrar');
   const input = form.querySelector('input');
 
@@ -18,8 +17,8 @@ document.addEventListener('DOMContentLoaded', () => {
   filterCheckBox.addEventListener('change', (e) => {
     const isChecked = e.target.checked;
     const lis = ul.children;
-    if (isChecked) {
-      for (let i=0; i<lis.length; i++) {
+    if(isChecked) {
+      for (let i = 0; i < lis.length; i += 1) {
         let li = lis[i];
         if (li.className === 'responded') {
           li.style.display = '';
@@ -28,18 +27,18 @@ document.addEventListener('DOMContentLoaded', () => {
         }
       }
     } else {
-      for (let i=0; i<lis.length; i++) {
+      for (let i = 0; i < lis.length; i += 1) {
         let li = lis[i];
         li.style.display = '';
       }
     }
   });
 
-  function createLI(text){
-    function createElement(elementName, property, value){
+  function createLI(text) {
+    function createElement(elementName, property, value) {
       const element = document.createElement(elementName);
       element[property] = value;
-      return element
+      return element;
     }
 
     function appendToLI(elementName, property, value) {
@@ -49,9 +48,9 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     const li = document.createElement('li');
-
     appendToLI('span', 'textContent', text);
-    appendToLI('label', 'textContent', 'Confirmed').appendChild(createElement('input', 'type', 'checkbox'));
+    appendToLI('label', 'textContent', 'Confirmed')
+      .appendChild(createElement('input', 'type', 'checkbox'));
     appendToLI('button', 'textContent', 'edit');
     appendToLI('button', 'textContent', 'remove');
     return li;
@@ -60,7 +59,7 @@ document.addEventListener('DOMContentLoaded', () => {
   form.addEventListener('submit', (e) => {
     e.preventDefault();
     const text = input.value;
-    input.value = "";
+    input.value = '';
     const li = createLI(text);
     ul.appendChild(li);
   });
@@ -68,38 +67,38 @@ document.addEventListener('DOMContentLoaded', () => {
   ul.addEventListener('change', (e) => {
     const checkbox = event.target;
     const checked = checkbox.checked;
-    const listItem = checkbox.parentNode;
+    const listItem = checkbox.parentNode.parentNode;
 
     if (checked) {
       listItem.className = 'responded';
     } else {
-      listItem.className = "";
+      listItem.className = '';
     }
   });
 
   ul.addEventListener('click', (e) => {
     if (e.target.tagName === 'BUTTON') {
       const button = e.target;
-      const li = e.target.parentNode.parentNode;
+      const li = button.parentNode;
       const ul = li.parentNode;
-      if (e.target.textContent === 'remove') {
+      if (button.textContent === 'remove') {
         ul.removeChild(li);
-      } else if (e.target.textContent === 'edit') {
-          const span = li.firstElementChild;
-          const input = document.createElement('input');
-          input.type = 'text';
-          input.value = span.textContent;
-          li.insertBefore(input, span);
-          li.removeChild(span);
-          button.textContent = 'save';
-      } else if (e.target.textContent === 'save') {
-            const input = li.firstElementChild;
-            const span = document.createElement('span');
-            span.textContent = input.value;
-            li.insertBefore(span, input);
-            li.removeChild(input);
-            button.textContent = 'edit';
+      } else if (button.textContent === 'edit') {
+        const span = li.firstElementChild;
+        const input = document.createElement('input');
+        input.type = 'text';
+        input.value = span.textContent;
+        li.insertBefore(input, span);
+        li.removeChild(span);
+        button.textContent = 'save';
+      } else if (button.textContent === 'save') {
+        const input = li.firstElementChild;
+        const span = document.createElement('span');
+        span.textContent = input.value;
+        li.insertBefore(span, input);
+        li.removeChild(input);
+        button.textContent = 'edit';
       }
     }
   });
-});
+});  
