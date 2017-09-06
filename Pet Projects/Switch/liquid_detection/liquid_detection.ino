@@ -11,14 +11,12 @@ void loop() {
   liquid_level = digitalRead(liquid);
   if (liquid_level == 1)
   {
-    Serial.println("TEA");
+    Serial.println("1, Liquid detected");
   }
   else 
   {
-    Serial.println("Nothing");
+    Serial.println("0, No liquid");
   }
-  //Serial.print("Liquid level = ");
-  //Serial.println(liquid_level, DEC);
   delay(1000);
 }
 
