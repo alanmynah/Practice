@@ -3,6 +3,7 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
 
+import datetime
 import logging
 import os, sys
 import serial
@@ -18,6 +19,19 @@ def turnPlugON():
 def turnPlugOFF():
     OFF = 'sudo ~/raspberry-strogonanoff/src/strogonanoff_sender.py --channel 1 --button 1 --gpio 0 off'
     os.system(OFF)
+    logging.info(logTimestamp())
+    logging.info("The plug is off.\n")
+    sendLogToEngineering()
+    time.sleep(1)
+    quit()
+
+def logTimestamp():
+    """
+    Creates a timestamp for a log in YYYY-Mmm-DD(Ddd), HH:MM:SS MS format
+    
+    Refer to https://docs.python.org/2/library/datetime.html#strftime-and-strptime-behavior
+    """
+    return datetime.datetime.now().strftime('%Y-%b-%d(%a), %H:%M:%S %f') 
 
 def startingProcedure():
     """
@@ -30,16 +44,16 @@ def startingProcedure():
     ## PLEASE REFER TO THIS TUTORIAL IF YOU HAVE ANY QUESTIONS
     ## https://riviera.org.uk/2015/01/15/using-a-raspberry-pi-to-control-maplin-power-sockets/
     
-    logging.info("Testing")
-    time.sleep(3)
-    logging.info("Switching off...")
-    turnPlugOFF()
-    logging.info("Sleeping for 3 seconds")
-    time.sleep(3)
-    logging.info("Switching on...") 
-    turnPlugON()
-    time.sleep(2)  
-  
+    logging.info(logTimestamp())
+    logging.info("Hi there, I'm Switch! Please bear with me, while I'm checking my stuff.\n")
+    time.sleep(1)
+    logging.info(logTimestamp())
+    logging.info("Testing\n")
+    time.sleep(2)
+    logging.info(logTimestamp())
+    logging.info("Switching on...\n")
+    turnPlugON() 
+    
   
 def sendLogToEngineering():
     """
@@ -59,16 +73,20 @@ def sendLogToEngineering():
     line2 = 'Liquid has been detected and motor has been shut down. Please visit the site immediately to confirm.\n'
     line3 = 'or\n' 
     line4 = 'An error in the script has occured.\n'
-    line5 = 'Either way, please get to the premises ASAP. \n CHECK LOGS FOR DETAILS.'+3*"/n"
+    line5 = 'Either way, please get to the premises ASAP. \n CHECK LOGS FOR DETAILS.'
+    
+    logging.info(logTimestamp())
+    logging.info("Sending email to Engineering\n")
+    
     log = ''
     
     file = open("switchlog.txt", "r") 
     for line in file: 
         log += line 
+    file.close()
     
     TEXT = line1+line2+line3+line4+line5 + 3*"\n" + log 
     
-    logging.info("Sending email to Engineering")
     smtpserver = smtplib.SMTP("smtp.gmail.com",587)
     smtpserver.ehlo()
     smtpserver.starttls()
@@ -84,30 +102,38 @@ def sendLogToEngineering():
 try:
     startingProcedure()
 except Exception:
-    logging.info("There is problem with startingProcedure function. Check it!")
-    sendLogToEngineering()   
+    logging.info(logTimestamp())
+    logging.info("There is problem with startingProcedure function. Check it!\n")
+    turnPlugOFF()
 try:
     ##  Connecting arduino board. Ammend port name below if required.
+    ##  For details see: https://learn.adafruit.com/arduino-lesson-17-email-sending-movement-detector
     ser = serial.Serial('/dev/ttyACM0', 9600)
 except Exception:
 ##  If this error happens, go to Arduino IDE and in "Tools" tab check, whether the connection name
 ##  and port name match.
-    logging.info("Problem with arduino connection. Check the port connection config!")
-    sendLogToEngineering()
-    
+    logging.info(logTimestamp())
+    logging.info("Problem with arduino connection. Check the port connection config!\n")
+    turnPlugOFF()
+
+logging.info(logTimestamp())
+logging.info("I think we are good to go.\n")
+
 while True:
     message = ser.readline()
-    print message
-##  Check whether liquid is present
+    ##  Check whether liquid is present
     if message[0] == "1":
-        logging.info("Liquid detected, verifying...")
-        time.sleep(5)
+        logging.info(logTimestamp())
+        logging.info("Liquid detected, verifying...\n")
         message = ser.readline()
-        print message
+        time.sleep(3)
 ##      Check again in case someone just holds it in their hand
         if message[0] == "1":
-            logging.info("Liquid presence confirmed. Shutting down the plug.")
+            logging.info(logTimestamp())
+            logging.info("Liquid presence confirmed. Shutting down the plug.\n")
             turnPlugOFF()
-            sendLogToEngineering()
-            quit() 
-    time.sleep(0.5)
+        else:
+            logging.info(logTimestamp())
+            logging.info("Liquid presence unverified.\n")
+            print "unverified"
+    time.sleep(1)
