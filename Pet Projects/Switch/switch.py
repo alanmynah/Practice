@@ -50,7 +50,8 @@ def startingProcedure():
     logging.info(logTimestamp())
     logging.info("Switching on...\n")
     turnPlugON() 
-    
+    time.sleep(2)
+    turnPlugON() 
   
 def sendLogToEngineering():
     """
@@ -125,8 +126,8 @@ while True:
     if message[0] == "1":
         logging.info(logTimestamp())
         logging.info("Liquid detected, verifying...\n")
-        message = ser.readline()
         time.sleep(3)
+        message = ser.readline()
 ##      Check again in case someone just holds it in their hand
         if message[0] == "1":
             logging.info(logTimestamp())
