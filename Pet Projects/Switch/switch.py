@@ -10,7 +10,14 @@ import serial
 import smtplib
 import time
 
+## Creates log file
 logging.basicConfig(filename='switchlog.txt', level=logging.INFO)
+
+
+    ## Console commands for switching the maplin's wifi plug, please check that the channel is correct,
+    ## otherwise change the below line for the channel and button required.
+    ## PLEASE REFER TO THIS TUTORIAL IF YOU HAVE ANY QUESTIONS
+    ## https://riviera.org.uk/2015/01/15/using-a-raspberry-pi-to-control-maplin-power-sockets/
 
 def turnPlugON():
     ON = 'sudo ~/raspberry-strogonanoff/src/strogonanoff_sender.py --channel 1 --button 1 --gpio 0 on'
@@ -34,16 +41,6 @@ def logTimestamp():
     return datetime.datetime.now().strftime('%Y-%b-%d(%a), %H:%M:%S %f') 
 
 def startingProcedure():
-    """
-    This function turns the plug off, waits 3 seconds, turns the plug on. It's a chance for you to see that
-    everything works. The pause is required as the plug doesn't respond to signals in quick succession. 
-    """
-    
-    ## Console commands for switching the maplin's wifi plug, please check that the channel is correct,
-    ## otherwise change the below line for the channel and button required.
-    ## PLEASE REFER TO THIS TUTORIAL IF YOU HAVE ANY QUESTIONS
-    ## https://riviera.org.uk/2015/01/15/using-a-raspberry-pi-to-control-maplin-power-sockets/
-    
     logging.info(logTimestamp())
     logging.info("Hi there, I'm Switch! Please bear with me, while I'm checking my stuff.\n")
     time.sleep(1)
@@ -63,6 +60,9 @@ def sendLogToEngineering():
     Birthday: September 5, 1917 (because google doesn't allow me to choose 2017, which is today)
     Gender: Rather not say
     Mobile: +441323509211
+    
+    Please try not to change anything, it was taken from
+    https://learn.adafruit.com/arduino-lesson-17-email-sending-movement-detector    
     """
     TO = 'VJPWFTENGINEERING@idexcorp.com'
     GMAIL_USER = 'wrightflow.raspberrypi@gmail.com'
@@ -135,5 +135,4 @@ while True:
         else:
             logging.info(logTimestamp())
             logging.info("Liquid presence unverified.\n")
-            print "unverified"
     time.sleep(1)
