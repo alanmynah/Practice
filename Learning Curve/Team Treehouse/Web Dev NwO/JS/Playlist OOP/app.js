@@ -3,8 +3,12 @@ var playlist = new Playlist();
 var allAlongTheWatchTower = new Song("All Along the Watch Tower", "Jimmy Hendrix", "3:50");
 var letMeEntertainYou = new Song("Let Me Entertain You", "Robbie Williams", "3:00");
 
+var citizenKane = new Movie("Citizen Kane", "Prehistoric","endless");
+
 playlist.add(allAlongTheWatchTower);
 playlist.add(letMeEntertainYou);
+
+playlist.add(citizenKane);
 
 var playlistElement = document.getElementById('playlist');
 
