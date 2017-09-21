@@ -1,4 +1,4 @@
-## Ian, this was written in python 2.7. Hope this helps... 
+## Ian, this was written in python 2.7. Hope this helps...
 
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
@@ -22,7 +22,7 @@ logging.basicConfig(filename='switchlog.txt', level=logging.INFO)
 def turnPlugON():
     ON = 'sudo ~/raspberry-strogonanoff/src/strogonanoff_sender.py --channel 1 --button 1 --gpio 0 on'
     os.system(ON)
-    
+
 def turnPlugOFF():
     OFF = 'sudo ~/raspberry-strogonanoff/src/strogonanoff_sender.py --channel 1 --button 1 --gpio 0 off'
     os.system(OFF)
@@ -35,10 +35,10 @@ def turnPlugOFF():
 def logTimestamp():
     """
     Creates a timestamp for a log in YYYY-Mmm-DD(Ddd), HH:MM:SS MS format
-    
+
     Refer to https://docs.python.org/2/library/datetime.html#strftime-and-strptime-behavior
     """
-    return datetime.datetime.now().strftime('%Y-%b-%d(%a), %H:%M:%S %f') 
+    return datetime.datetime.now().strftime('%Y-%b-%d(%a), %H:%M:%S %f')
 
 def startingProcedure():
     logging.info(logTimestamp())
@@ -49,45 +49,45 @@ def startingProcedure():
     time.sleep(2)
     logging.info(logTimestamp())
     logging.info("Switching on...\n")
-    turnPlugON() 
+    turnPlugON()
     time.sleep(2)
-    turnPlugON() 
-  
+    turnPlugON()
+
 def sendLogToEngineering():
     """
     This function sends an email with a log to engineering inbox.
     Name: Raspberry Pi
-    Surname: Wright Flow
+    Surname: W____ F___
     Birthday: September 5, 1917 (because google doesn't allow me to choose 2017, which is today)
     Gender: Rather not say
-    Mobile: +441323509211
-    
+    Mobile: +44__________
+
     Please try not to change anything, it was taken from
-    https://learn.adafruit.com/arduino-lesson-17-email-sending-movement-detector    
+    https://learn.adafruit.com/arduino-lesson-17-email-sending-movement-detector
     """
-    TO = 'VJPWFTENGINEERING@idexcorp.com'
-    GMAIL_USER = 'wrightflow.raspberrypi@gmail.com'
-    GMAIL_PASS = 'iamwrightflowraspberrypi'
- 
+    TO = 'V________@_______.com'
+    GMAIL_USER = '________.raspberrypi@gmail.com'
+    GMAIL_PASS = 'iam________raspberrypi'
+
     SUBJECT = 'SENSOR TRIGGERED'
     line1 = 'This is an automated email. This message means either of two things:\n'
     line2 = 'Liquid has been detected and motor has been shut down. Please visit the site immediately to confirm.\n'
-    line3 = 'or\n' 
+    line3 = 'or\n'
     line4 = 'An error in the script has occured.\n'
     line5 = 'Either way, please get to the premises ASAP. \n CHECK LOGS FOR DETAILS.'
-    
+
     logging.info(logTimestamp())
     logging.info("Sending email to Engineering\n")
-    
+
     log = ''
-    
-    file = open("switchlog.txt", "r") 
-    for line in file: 
-        log += line 
+
+    file = open("switchlog.txt", "r")
+    for line in file:
+        log += line
     file.close()
-    
-    TEXT = line1+line2+line3+line4+line5 + 3*"\n" + log 
-    
+
+    TEXT = line1+line2+line3+line4+line5 + 3*"\n" + log
+
     smtpserver = smtplib.SMTP("smtp.gmail.com",587)
     smtpserver.ehlo()
     smtpserver.starttls()
@@ -99,7 +99,7 @@ def sendLogToEngineering():
     msg = header + '\n' + TEXT + ' \n\n'
     smtpserver.sendmail(GMAIL_USER, TO, msg)
     smtpserver.close()
-    
+
 try:
     startingProcedure()
 except Exception:
